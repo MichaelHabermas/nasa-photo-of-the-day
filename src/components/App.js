@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import '../App.css';
 import axios from 'axios';
-import Photo from './Photo.js';
+import PhotoCard from './PhotoCard.js';
+import style from 'styled-components';
 
 function App() {
 	const [photoOfTheDay, setPhotoOfTheDay] = useState({});
@@ -10,10 +11,6 @@ function App() {
 		axios
 			.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY') // NOT FINISHED
 			.then(res => {
-				console.log('C');
-				console.log(res);
-				// setPhotoOfTheDay(res);
-				// setPhotoOfTheDay({ ...res });
 				setPhotoOfTheDay(res.data);
 			})
 			.catch(err => {
@@ -23,13 +20,14 @@ function App() {
 
 	if (!photoOfTheDay) return <h3>Loading...</h3>;
 
-	console.log('A');
-	console.log(photoOfTheDay);
+	const PageTitle = style.h1`
+  color: red;
+`;
 
 	return (
 		<div className="App">
-			<h1>NASA Photo of the Day</h1>
-			<Photo photoOfTheDay={photoOfTheDay} />
+			<PageTitle>NASA Photo of the Day</PageTitle>
+			<PhotoCard photoOfTheDay={photoOfTheDay} />
 		</div>
 	);
 }
